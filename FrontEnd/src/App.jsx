@@ -115,7 +115,6 @@ function App() {
         <Route path="/" element={<AuthWrapper />} />
         <Route path="/signin" element={<AuthWrapper />} />
         <Route path="/signup" element={<AuthWrapper />} />
-
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protected HR routes */}

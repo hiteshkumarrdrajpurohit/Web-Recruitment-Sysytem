@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.sunbeam.entity.Application;
 import com.sunbeam.entity.types.ApplicationStatus;
@@ -14,6 +15,7 @@ import com.sunbeam.entity.types.ApplicationStatus;
  * DAO interface for Application entity
  * Provides data access methods for application management
  */
+@Repository
 public interface ApplicationDao extends JpaRepository<Application, Long> {
 
     // Find applications by user ID with user and vacancy details

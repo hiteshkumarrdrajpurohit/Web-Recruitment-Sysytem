@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.sunbeam.entity.Hirings;
 import com.sunbeam.entity.types.Decision;
@@ -14,6 +15,7 @@ import com.sunbeam.entity.types.Decision;
  * DAO interface for Hirings entity
  * Provides data access methods for hiring decisions
  */
+@Repository
 public interface HiringDao extends JpaRepository<Hirings, Long> {
 
     // Find all hirings with details (eager loading)

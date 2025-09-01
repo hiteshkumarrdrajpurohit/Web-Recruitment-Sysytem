@@ -17,7 +17,7 @@ public class UpdateUserDTO {
 
 	private  String city;
 	    
-		private String state;
+	private String state;
 
 	private Long zipCode;
 	

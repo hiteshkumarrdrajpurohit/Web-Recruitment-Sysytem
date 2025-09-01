@@ -90,12 +90,11 @@ public class User  extends BaseEntity implements UserDetails {
 
    @OneToMany(mappedBy = "user", 
 			cascade = CascadeType.ALL, orphanRemoval = true)
-
-   private List<Application> ApplicationList = new ArrayList<>();
+   private List<Application> applicationList = new ArrayList<>();
 
    @OneToOne(mappedBy = "user", 
 			cascade = CascadeType.ALL, orphanRemoval = true)
-    private HrManager hrManger;
+    private HrManager hrManager;
 
 
     @Override

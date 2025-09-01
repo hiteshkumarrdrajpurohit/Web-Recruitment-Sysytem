@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.sunbeam.entity.Interview;
 import com.sunbeam.entity.types.InterviewStatus;
@@ -15,6 +16,7 @@ import com.sunbeam.entity.types.InterviewStatus;
  * DAO interface for Interview entity
  * Provides data access methods for interview management
  */
+@Repository
 public interface InterviewDao extends JpaRepository<Interview, Long> {
 
     // Find all interviews with application, user, and vacancy details

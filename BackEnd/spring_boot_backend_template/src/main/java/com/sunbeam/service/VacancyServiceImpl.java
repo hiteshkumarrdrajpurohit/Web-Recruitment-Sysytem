@@ -81,19 +81,16 @@ public class VacancyServiceImpl implements VacancyService {
 	@Override
 	public VacancyDTO createVacancy(VacancyDTO vacancyDTO, String hrEmail) {
 		Vacancy vacancy = modelMapper.map(vacancyDTO, Vacancy.class);
-		
 		// Set default status if not provided
 		if (vacancy.getStatus() == null) {
 			vacancy.setStatus(JobStatus.DRAFT);
 		}
-		
 		// Find or create HR manager by email
 		HrManager hrManager = hrManagerDao.findByUserEmail(hrEmail)
 			.orElseGet(() -> {
 				// If HR manager doesn't exist, create one
 				User user = userDao.findByEmail(hrEmail)
 					.orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + hrEmail));
-				
 				HrManager newHrManager = new HrManager();
 				newHrManager.setUser(user);
 				newHrManager.setDepartmentName("Human Resources");
@@ -104,7 +101,6 @@ public class VacancyServiceImpl implements VacancyService {
 		Vacancy savedVacancy = vacancyDao.save(vacancy);
 		return modelMapper.map(savedVacancy, VacancyDTO.class);
 	}
-
 	@Override
 	public VacancyDTO updateVacancy(Long id, VacancyDTO vacancyDTO) {
 		Vacancy existingVacancy = vacancyDao.findById(id)
@@ -135,7 +131,6 @@ public class VacancyServiceImpl implements VacancyService {
 		if (!vacancyDao.existsById(id)) {
 			throw new ResourceNotFoundException("Vacancy not found with ID: " + id);
 		}
-		
 		vacancyDao.deleteById(id);
 		return new ApiResponse("Vacancy deleted successfully");
 	}

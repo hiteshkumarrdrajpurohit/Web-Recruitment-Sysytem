@@ -22,31 +22,22 @@ function SignIn({ onSwitchToForgetPassword,onSwitchToSignUp }) {
     setError('');
     
     try {
+      
       const result = await authSignIn(email, password);
       
       if (result.success) {
-        // Decode token to get user details from backend
+        // Get user details directly from backend response
         let userRole = 'applicant'; // default
-        let userId = null;
-        let userEmail = email;
+        let userId = result.data.id;
+        let userEmail = result.data.email;
+        let firstName = result.data.firstName;
+        let lastName = result.data.lastName;
         
-        try {
-          const tokenPayload = JSON.parse(atob(result.token.split('.')[1]));
-          console.log('Token payload:', tokenPayload); // For debugging
-          
-          // Extract role
-          if (tokenPayload.role === 'ROLE_HRMANAGER') {
-            userRole = 'hr';
-          } else if (tokenPayload.role === 'ROLE_USER') {
-            userRole = 'applicant';
-          }
-          
-          // Extract user ID and email from token
-          userId = tokenPayload.sub || tokenPayload.userId || tokenPayload.email; // Try different field names
-          userEmail = tokenPayload.email || email;
-          
-        } catch (tokenError) {
-          console.warn('Could not parse token details, using default:', tokenError);
+        // Map backend role to frontend role
+        if (result.data.role === 'HRMANAGER') {
+          userRole = 'hr';
+        } else if (result.data.role === 'USER') {
+          userRole = 'applicant';
         }
         
         // Create user object from backend response
@@ -54,7 +45,9 @@ function SignIn({ onSwitchToForgetPassword,onSwitchToSignUp }) {
           id: userId,
           email: userEmail,
           role: userRole,
-          token: result.token
+          firstName: firstName,
+          lastName: lastName,
+          token: result.data.token
         };
         
         setUser(user);

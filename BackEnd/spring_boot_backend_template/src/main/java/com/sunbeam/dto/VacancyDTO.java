@@ -43,7 +43,6 @@ public class VacancyDTO {
     private String shiftDetails;
     
     private Long hrManagerId; // Reference to HR manager
-    
     // Audit fields from BaseEntity
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;

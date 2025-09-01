@@ -41,10 +41,6 @@ public class Application  extends BaseEntity{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-   @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interview_id", nullable = false)
-    private Interview interview;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ApplicationStatus status; // SUBMITTED, UNDER_REVIEW, SHORTLISTED, INTERVIEWED, REJECTED, SELECTED
@@ -60,6 +56,6 @@ public class Application  extends BaseEntity{
     @OneToMany(mappedBy = "application", 
 			cascade = CascadeType.ALL, orphanRemoval = true)
 
-   private List<Interview> interviewList = new ArrayList<>();
+    private List<Interview> interviewList = new ArrayList<>();
     
 }

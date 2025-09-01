@@ -2,10 +2,12 @@ package com.sunbeam.dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.sunbeam.entity.Vacancy;
 import com.sunbeam.entity.types.JobStatus;
@@ -15,6 +17,7 @@ import com.sunbeam.entity.types.JobType;
  * DAO interface for Vacancy entity
  * Provides data access methods for vacancy management
  */
+@Repository
 public interface VacancyDao extends JpaRepository<Vacancy, Long> {
 	
 	// Find vacancies by status

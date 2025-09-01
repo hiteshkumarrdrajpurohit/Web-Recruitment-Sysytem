@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.FieldError;
 
 import com.sunbeam.custom_exceptions.AuthenticationFailureException;
 import com.sunbeam.custom_exceptions.InvalidInputException;
@@ -41,6 +43,17 @@ public class GlobalExceptionHandler {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST)//SC 400
 							.body(new ApiResponse(e.getMessage()));		
 				}
+		
+		// Handle Bean Validation errors (from @NotBlank, @NotNull, etc.)
+		@ExceptionHandler(MethodArgumentNotValidException.class)
+		public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException e) {
+			System.out.println("in catch - validation exc");
+			FieldError fieldError = e.getBindingResult().getFieldError();
+			String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : "Validation failed";
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST) // SC 400
+					.body(new ApiResponse(errorMessage));
+		}
+		
 		//add exception handling method - to catch remaining excs (catch-all)
 		@ExceptionHandler(RuntimeException.class)
 		public ResponseEntity<?> 

@@ -32,7 +32,6 @@ import lombok.AllArgsConstructor;
 public class VacancyController {
 
     private final VacancyService vacancyService;
-
     /**
      * Get all vacancies (Public access for job seekers)
      * @return List of all active vacancies
@@ -42,7 +41,6 @@ public class VacancyController {
         List<VacancyDTO> vacancies = vacancyService.getAllActiveVacancies();
         return ResponseEntity.ok(vacancies);
     }
-
     /**
      * Get vacancy by ID
      * @param id - Vacancy ID
@@ -52,8 +50,7 @@ public class VacancyController {
     public ResponseEntity<VacancyDTO> getVacancyById(@PathVariable Long id) {
         VacancyDTO vacancy = vacancyService.getVacancyById(id);
         return ResponseEntity.ok(vacancy);
-    }
-
+    }  
     /**
      * Search vacancies by criteria
      * @param title - Job title (optional)
@@ -70,7 +67,6 @@ public class VacancyController {
         List<VacancyDTO> vacancies = vacancyService.searchVacancies(title, department, location);
         return ResponseEntity.ok(vacancies);
     }
-
     /**
      * Create new vacancy (HR only)
      * @param vacancyDTO - Vacancy details
@@ -84,7 +80,6 @@ public class VacancyController {
         VacancyDTO createdVacancy = vacancyService.createVacancy(vacancyDTO, hrEmail);
         return ResponseEntity.ok(createdVacancy);
     }
-
     /**
      * Update vacancy (HR only)
      * @param id - Vacancy ID

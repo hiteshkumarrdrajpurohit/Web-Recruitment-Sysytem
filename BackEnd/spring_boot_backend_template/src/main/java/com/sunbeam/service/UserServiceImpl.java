@@ -20,11 +20,12 @@ import com.sunbeam.dto.SignUpDTO;
 import com.sunbeam.dto.UpdateUserDTO;
 import com.sunbeam.dto.UserDTO;
 import com.sunbeam.dto.VacancyDTO;
+import com.sunbeam.dto.SignInResponseDTO;
 import com.sunbeam.entity.User;
 import com.sunbeam.entity.types.UserRole;
+import com.sunbeam.security.JwtUtil;
 
 import lombok.AllArgsConstructor;
-
 
 @Service
 @Transactional
@@ -37,18 +38,31 @@ public class UserServiceImpl implements UserService {
 	
 	private final PasswordEncoder passwordEncoder;
 	
+	private final JwtUtil jwtUtil;
+
 	@Override
-	public UserDTO signIn(SignInDTO dto) {
+	public SignInResponseDTO signInWithToken(SignInDTO dto) {
 		// Find user by email
-		User entity = userDao.findByEmail(dto.getEmail())
-				.orElseThrow(() -> new AuthenticationFailureException("Invalid email or Password"));
+		User user = userDao.findByEmail(dto.getEmail())
+				.orElseThrow(() -> new AuthenticationFailureException("Invalid email or password"));
 		
 		// Check if password matches
-		if (!passwordEncoder.matches(dto.getPassword(), entity.getPassword())) {
-			throw new AuthenticationFailureException("Invalid email or Password");
+		if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+			throw new AuthenticationFailureException("Invalid email or password");
 		}
 		
-		return modelMapper.map(entity, UserDTO.class);
+		// Create JWT token
+		String token = jwtUtil.createTokenForUser(user);
+		
+		// Create and return SignInResponseDTO
+		return new SignInResponseDTO(
+			token,
+			user.getId(),
+			user.getEmail(),
+			user.getRole().name(),
+			user.getFirstName(),
+			user.getLastName()
+		);
 	}
 
 	@Override

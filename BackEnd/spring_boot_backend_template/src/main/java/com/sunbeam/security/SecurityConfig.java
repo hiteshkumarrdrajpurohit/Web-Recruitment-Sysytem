@@ -36,21 +36,22 @@ public class SecurityConfig {
 		authManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		return authManagerBuilder.build();
 	}
-
+	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOriginPatterns(Arrays.asList(
-			"http://localhost:*",
-			"http://127.0.0.1:*",
-			"http://65.0.139.127:*",
-			"https://ec2-43-204-228-176.ap-south-1.compute.amazonaws.com",
-			"https://*.cloudfront.net"
-		));
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList(
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5173",
+		"http://localhost:5174",//te dev server
+        "http://127.0.0.1:5173",    // Vite dev server alternative
+        "http://3.111.47.177",      // if frontend served on port 80
+        "http://3.111.47.177:8080"
+    ));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setAllowCredentials(true);
-		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
@@ -62,14 +63,22 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(requests -> requests
-					.requestMatchers("/swagger-ui/**","/v**/api-docs/**",
-						"/users/signin","/users/signup", "/vacancies", "/vacancies/**").permitAll()
-					.requestMatchers("/users/candidates").hasRole("HRMANAGER")
-					.requestMatchers("/users/**", "/dashboard/applicant/**").hasRole("USER")
-					.requestMatchers("/applications/apply", "/applications/user/**", "/applications/my", "/applications/check-applied/**").hasRole("USER")
-					// Allow applicants to fetch interviews by application and by id
-					.requestMatchers("/interviews/application/**", "/interviews/*").hasAnyRole("HRMANAGER","USER")
-					.requestMatchers("/vacancies/all", "/applications", "/applications/**", "/interviews/**", "/hirings/**", "/dashboard/hr/**").hasRole("HRMANAGER")
+					// Public endpoints - no authentication required
+					.requestMatchers("/swagger-ui/**", "/v**/api-docs/**", "/users/signin", "/users/signup", 
+						"/vacancies", "/vacancies/**").permitAll()
+					
+					// USER role access - Job seekers and candidates
+					.requestMatchers("/users/profile", "/users/update", "/dashboard/applicant/**", 
+						"/applications/apply", "/applications/user/**", "/applications/my", 
+						"/applications/check-applied/**").hasRole("USER")
+					
+					// HRMANAGER role access - HR and recruitment staff
+					.requestMatchers("/vacancies/all", "/applications", "/applications/**", 
+						"/interviews/**", "/hirings/**", "/dashboard/hr/**").hasRole("HRMANAGER")
+					
+					// Shared access between USER and HRMANAGER
+					.requestMatchers("/users/candidates", "/interviews/application/**", "/interviews/*").hasAnyRole("HRMANAGER", "USER")
+					
 					.anyRequest().authenticated()
 				)
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

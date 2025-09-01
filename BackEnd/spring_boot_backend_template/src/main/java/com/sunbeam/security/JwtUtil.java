@@ -34,8 +34,26 @@ public class JwtUtil {
 	}
 	
 	public String createToken(Authentication auth) {
-		User user = (User)auth.getPrincipal();	// user email
-		String subject = "" + user.getUsername(); // user email
+		
+		User user = (User)auth.getPrincipal();	
+		String subject = user.getUsername(); // user email
+		
+		String roles = user.getAuthorities().stream()	// user role e.g. ROLE_USER or ROLE_ADMIN
+		.map(authority -> authority.getAuthority())
+		.collect(Collectors.joining(","));
+
+		String token = Jwts.builder()
+			.setSubject(subject)
+			.setIssuedAt(new Date())
+			.setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+			.claim("role", roles)
+			.signWith(jwtKey , SignatureAlgorithm.HS256)
+			.compact();
+		return token;
+	}
+	
+	public String createTokenForUser(User user) {
+		String subject = user.getUsername(); // user email
 		
 		String roles = user.getAuthorities().stream()	// user role e.g. ROLE_USER or ROLE_ADMIN
 		.map(authority -> authority.getAuthority())

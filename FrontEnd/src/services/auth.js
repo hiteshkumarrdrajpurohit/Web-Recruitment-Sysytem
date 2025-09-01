@@ -29,18 +29,20 @@ export const handleSignIn = async (email, password) => {
         // check if response is OK
         if (response.status === 200) {
           // Store JWT token in sessionStorage
-          const token = response.data;
+          const token = response.data.token;
           sessionStorage.setItem("token", token);
           
-          // Return success indicator
-          return { success: true, token: token }
+          // Return success indicator with complete user data
+          return { success: true, data: response.data }
         } else {
           // send null result
           return { success: false, error: "Invalid credentials" }
         }
       } catch (ex) {
         console.log(`exception: `, ex)
-        return { success: false, error: ex.response?.data?.message || "Login failed" }
+        // Extract message from ApiResponse object, fallback to generic error
+        const errorMessage = ex.response?.data?.message || ex.message || "Login failed"
+        return { success: false, error: errorMessage }
       }
 }
 
@@ -62,7 +64,9 @@ export const handleSignUp = async (userData) => {
         }
     } catch (ex) {
         console.log(`exception: `, ex)
-        return { success: false, error: ex.response?.data?.message || "Registration failed" }
+        // Extract message from ApiResponse object, fallback to generic error
+        const errorMessage = ex.response?.data?.message || ex.message || "Registration failed"
+        return { success: false, error: errorMessage }
     }
 }
 
