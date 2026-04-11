@@ -32,6 +32,6 @@ public class UpdateUserDTO {
     private LocalDate endDate;
    
     private String summary;
-
+    private String profilePicture;
 	}
 

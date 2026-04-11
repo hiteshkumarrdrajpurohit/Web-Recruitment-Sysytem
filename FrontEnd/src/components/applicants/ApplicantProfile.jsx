@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./ApplicantNavbar";
 import { getProfile, updateProfile } from '../../services/applicant';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../App';
 
 export default function ApplicantProfile() {
+  const { user, setUser } = useAuth();
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState({});
   const [editing, setEditing] = useState(false);
@@ -42,7 +44,8 @@ export default function ApplicantProfile() {
           designation: profileData.designation || '',
           startDate: profileData.startDate || '',
           endDate: profileData.endDate || '',
-          summary: profileData.summary || ''
+          summary: profileData.summary || '',
+          profilePicture: profileData.profilePicture || ''
         });
       } else {
         setError(result.error || 'Failed to load profile');
@@ -60,6 +63,42 @@ export default function ApplicantProfile() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        toast.error("Image size should be less than 2MB");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64Image = reader.result;
+        setForm((prev) => ({ ...prev, profilePicture: base64Image }));
+        
+        // If not editing, instantly trigger a background save for the photo
+        if (!editing) {
+          try {
+            toast.info("Uploading photo...");
+            const currentForm = { ...form, profilePicture: base64Image };
+            const result = await updateProfile(currentForm);
+            if (result.success) {
+              if (user) {
+                setUser({ ...user, profilePicture: base64Image });
+              }
+              await loadProfile();
+              toast.success("Profile photo updated!");
+            } else {
+              toast.error("Failed to save photo");
+            }
+          } catch (err) {
+             toast.error("Error saving photo");
+          }
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     setError('');
@@ -68,6 +107,12 @@ export default function ApplicantProfile() {
       const result = await updateProfile(form);
       
       if (result.success) {
+        // Update global user context with new profile picture
+        if (form.profilePicture && form.profilePicture !== user?.profilePicture) {
+          const updatedUser = { ...user, profilePicture: form.profilePicture };
+          setUser(updatedUser);
+        }
+        
         // Reload profile to get updated data
         await loadProfile();
         setEditing(false);
@@ -129,8 +174,28 @@ export default function ApplicantProfile() {
       {/* Profile Card */}
       <div className="max-w-4xl mx-auto mt-2">
         <div className="bg-white rounded-xl shadow p-8 flex flex-col items-center">
-          <div className="h-24 w-24 rounded-full bg-blue-200 flex items-center justify-center text-4xl font-bold text-blue-700 mb-4">
-            {profile.firstName ? profile.firstName[0].toUpperCase() : 'U'}
+          <div className="relative mb-4 group cursor-pointer">
+            <label className="cursor-pointer block relative">
+              <input type="file" className="hidden" accept="image/*" onChange={handlePhotoUpload} />
+              {form.profilePicture || profile?.profilePicture || user?.profilePicture ? (
+                <img 
+                  src={form.profilePicture || profile?.profilePicture || user?.profilePicture} 
+                  alt="Profile" 
+                  className="h-24 w-24 rounded-full object-cover border-4 border-white shadow-md mx-auto group-hover:opacity-80 transition" 
+                />
+              ) : (
+                <div className="h-24 w-24 rounded-full bg-blue-200 flex items-center justify-center text-4xl font-bold text-blue-700 shadow-md mx-auto group-hover:opacity-80 transition">
+                  {profile.firstName ? profile.firstName[0].toUpperCase() : 'U'}
+                </div>
+              )}
+              
+              <div title="Upload Photo" className="absolute bottom-0 right-0 bg-blue-600 rounded-full p-2 shadow-lg hover:bg-blue-700 transition">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+            </label>
           </div>
           
           {error && (

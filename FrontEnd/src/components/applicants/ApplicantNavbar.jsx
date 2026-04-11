@@ -86,9 +86,17 @@ export default function Navbar() {
           Logout
         </button>
         <div className="flex items-center gap-2 border-l pl-4">
-          <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
-            {initials}
-          </div>
+          {user?.profilePicture ? (
+            <img 
+              src={user.profilePicture} 
+              alt="Profile" 
+              className="h-8 w-8 rounded-full object-cover border border-gray-200"
+            />
+          ) : (
+            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
+              {initials}
+            </div>
+          )}
           <span className="font-medium text-sm lg:text-base text-gray-700 hidden sm:block">
             {displayName}
           </span>

@@ -20,6 +20,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Lob;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -85,7 +86,10 @@ public class User  extends BaseEntity implements UserDetails {
    
     private String summary;
 
-    
+    @Lob 
+    @Column(columnDefinition = "LONGTEXT")
+    private String profilePicture;
+
     private Boolean isActive = true;
 
    @OneToMany(mappedBy = "user", 

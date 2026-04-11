@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService {
 			user.getEmail(),
 			user.getRole().name(),
 			user.getFirstName(),
-			user.getLastName()
+			user.getLastName(),
+			user.getProfilePicture()
 		);
 	}
 
@@ -103,6 +104,9 @@ public class UserServiceImpl implements UserService {
 		entity.setEndDate(dto.getEndDate());
 		entity.setDesignation(dto.getDesignation());
 		entity.setSummary(dto.getSummary());
+		if (dto.getProfilePicture() != null) {
+			entity.setProfilePicture(dto.getProfilePicture());
+		}
 		modelMapper.map(dto, entity);
 		
 		return new ApiResponse("Updated User details ....");

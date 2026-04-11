@@ -32,5 +32,6 @@ public class UserDTO {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String summary;
+	private String profilePicture;
 	private Boolean isActive;
 }

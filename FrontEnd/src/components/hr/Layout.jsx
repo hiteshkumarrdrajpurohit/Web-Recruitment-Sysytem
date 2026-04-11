@@ -95,10 +95,18 @@ const Layout = ({ children }) => {
             >
               Logout
             </button>
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
-                {initials}
-              </div>
+            <div className="flex items-center gap-2 border-l pl-3 ml-1">
+              {user?.profilePicture ? (
+                <img 
+                  src={user.profilePicture} 
+                  alt="Profile" 
+                  className="h-8 w-8 rounded-full object-cover border border-gray-200"
+                />
+              ) : (
+                <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
+                  {initials}
+                </div>
+              )}
               <span className="font-medium text-gray-700 text-sm truncate max-w-[120px] hidden xl:block">{displayName}</span>
             </div>
           </div>
@@ -138,7 +146,11 @@ const Layout = ({ children }) => {
               })}
               {/* Mobile compact profile */}
               <div className="mt-2 border-t pt-2 flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">{initials}</div>
+                {user?.profilePicture ? (
+                  <img src={user.profilePicture} className="h-8 w-8 rounded-full object-cover border border-gray-200" alt="Profile" />
+                ) : (
+                  <div className="h-8 w-8 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">{initials}</div>
+                )}
                 <span className="font-medium text-gray-900">{displayName}</span>
               </div>
             </div>

@@ -16,4 +16,5 @@ public class SignInResponseDTO {
     private String role;
     private String firstName;
     private String lastName;
+    private String profilePicture;
 }
