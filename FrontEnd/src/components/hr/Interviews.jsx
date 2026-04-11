@@ -34,6 +34,7 @@ import {
   getInterviewById,
   getAllCandidates 
 } from '../../services/hr';
+import { toast } from 'react-toastify';
 
 export function Interviews() {
   const [interviews, setInterviews] = useState([]);
@@ -135,7 +136,7 @@ export function Interviews() {
           if (result.success) {
             await loadData();
             setShowScheduleModal(false);
-            alert('Interview scheduled successfully!');
+            toast.success('Interview scheduled successfully!');
           } else {
             setError(result.error || 'Failed to schedule interview');
           }
@@ -150,7 +151,7 @@ export function Interviews() {
         if (result.success) {
           await loadData();
           setShowScheduleModal(false);
-          alert('Interview scheduled successfully!');
+          toast.success('Interview scheduled successfully!');
         } else {
           setError(result.error || 'Failed to schedule interview');
         }
@@ -168,7 +169,7 @@ export function Interviews() {
       
       if (result.success) {
         await loadData(); // Reload to get updated list
-        alert(`Interview status updated to ${newStatus} successfully!`);
+        toast.success(`Interview status updated to ${newStatus} successfully!`);
       } else {
         setError(result.error || 'Failed to update interview status');
       }
@@ -187,7 +188,7 @@ export function Interviews() {
         await loadData();
         setShowEditModal(false);
         setSelectedInterview(null);
-        alert('Interview updated successfully!');
+        toast.success('Interview updated successfully!');
       } else {
         setError(result.error || 'Failed to update interview');
       }
@@ -206,7 +207,7 @@ export function Interviews() {
         await loadData();
         setShowDeleteModal(false);
         setSelectedInterview(null);
-        alert('Interview deleted successfully!');
+        toast.success('Interview deleted successfully!');
       } else {
         setError(result.error || 'Failed to delete interview');
       }
@@ -218,7 +219,7 @@ export function Interviews() {
 
   const handleBulkAction = async (action) => {
     if (selectedInterviews.length === 0) {
-      alert('Please select interviews first');
+      toast.warning('Please select interviews first');
       return;
     }
 
@@ -233,7 +234,7 @@ export function Interviews() {
       }
       await loadData();
       setSelectedInterviews([]);
-      alert(`${action === 'cancel' ? 'Cancelled' : 'Deleted'} ${selectedInterviews.length} interviews successfully!`);
+      toast.success(`${action === 'cancel' ? 'Cancelled' : 'Deleted'} ${selectedInterviews.length} interviews successfully!`);
     } catch (err) {
       console.error(`Error with bulk ${action}:`, err);
       setError(`Failed to ${action} interviews`);
@@ -263,7 +264,7 @@ export function Interviews() {
       const vacancy = application.vacancy || {};
       
       // Only show interviews for users with 'USER' role (exclude HR managers)
-      if (user.role !== 'USER') {
+      if (user.role && user.role !== 'USER') {
         return false;
       }
       

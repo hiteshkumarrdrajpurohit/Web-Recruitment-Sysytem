@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { getProfile, getMyApplications, getAllJobs } from "../../services/applicant";
 
 export default function ApplicantDashboard() {
   const [applicant, setApplicant] = useState(null);
@@ -11,14 +11,15 @@ export default function ApplicantDashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const applicantRes = await axios.get("/api/applicant");
-        setApplicant(applicantRes.data);
+        const [profileRes, appsRes, jobsRes] = await Promise.all([
+          getProfile(),
+          getMyApplications(),
+          getAllJobs()
+        ]);
 
-        const applicationsRes = await axios.get("/api/applications");
-        setApplications(applicationsRes.data?.applications || []);
-
-        const jobsRes = await axios.get("/api/featured-jobs");
-        setFeaturedJobs(jobsRes.data?.jobs || []);
+        if (profileRes?.success) setApplicant(profileRes.data);
+        if (appsRes?.success) setApplications(appsRes.data.slice(0, 5)); // Just recent 5
+        if (jobsRes?.success) setFeaturedJobs(jobsRes.data.slice(0, 4)); // Just 4 featured
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);
       } finally {
@@ -37,13 +38,8 @@ export default function ApplicantDashboard() {
     );
   }
 
-  if (!applicant) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">
-        Failed to load applicant data.
-      </div>
-    );
-  }
+  // Fallback to empty applicant so HR managers looking at this screen don't crash it
+  const displayUser = applicant || { firstName: 'User', lastName: '' };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -53,14 +49,14 @@ export default function ApplicantDashboard() {
         <div className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h2 className="text-2xl font-bold mb-2">
-              Welcome back, {applicant.firstName} {applicant.lastName}!
+              Welcome back, {displayUser.firstName} {displayUser.lastName}!
             </h2>
             <p className="mb-4">
               Ready to find your next opportunity? Let's explore the latest job
               openings.
             </p>
             <Link
-              to="/jobs"
+              to="/applicantlayout/user/jobs"
               className="inline-block px-5 py-2 bg-white text-blue-600 font-semibold rounded shadow hover:bg-blue-50"
             >
               Browse Jobs
@@ -89,14 +85,14 @@ export default function ApplicantDashboard() {
                   key={idx}
                   className="border rounded p-4 flex flex-col gap-1 mb-2 bg-gray-50"
                 >
-                  <div className="font-medium">{app.job}</div>
-                  <div className="text-sm text-gray-500">{app.company}</div>
+                  <div className="font-medium">{app.vacancy?.title || 'Unknown Job'}</div>
+                  <div className="text-sm text-gray-500">{app.vacancy?.department || ''}</div>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
-                      {app.status}
+                      {app.status || 'SUBMITTED'}
                     </span>
                     <span className="text-xs text-gray-400">
-                      Applied {app.applied}
+                      Applied {new Date(app.createdAt || app.appliedDate).toLocaleDateString()}
                     </span>
                   </div>
                 </div>
@@ -130,13 +126,13 @@ export default function ApplicantDashboard() {
                       {job.type || "full-time"}
                     </span>
                     <span className="text-xs text-gray-400">
-                      {job.salary
-                        ? `₹${job.salary.min?.toLocaleString('en-IN')} - ₹${job.salary.max?.toLocaleString('en-IN')}`
-                        : ""}
+                      {job.minSalary && job.maxSalary
+                        ? `₹${job.minSalary.toLocaleString('en-IN')} - ₹${job.maxSalary.toLocaleString('en-IN')}`
+                        : "Salary not disclosed"}
                     </span>
                   </div>
                   <Link
-                    to="/jobs"
+                    to="/applicantlayout/user/jobs"
                     className="text-blue-600 text-xs hover:underline mt-1"
                   >
                     View Details

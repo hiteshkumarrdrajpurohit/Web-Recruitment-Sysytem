@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Applicants from "./components/hr/Applicants";
 import HRDashboard from "./components/hr/HRDashboard";
@@ -109,6 +111,7 @@ function App() {
   return (
 
     <AuthContext.Provider value={{ user, setUser }}>
+      <ToastContainer position="top-right" autoClose={3000} />
     <Router>
       <Routes>
         {/* Public routes */}

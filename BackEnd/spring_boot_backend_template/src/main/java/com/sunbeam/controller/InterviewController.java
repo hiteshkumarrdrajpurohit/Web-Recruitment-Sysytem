@@ -69,16 +69,27 @@ public class InterviewController {
         return ResponseEntity.ok(createdInterview);
     }
 
-    /**
-     * Update interview (HR only)
-     * @param id - Interview ID
-     * @param interviewDTO - Updated interview details
-     * @return Updated interview
-     */
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('HRMANAGER')")
     public ResponseEntity<InterviewDTO> updateInterview(@PathVariable Long id, @RequestBody InterviewDTO interviewDTO) {
         InterviewDTO updatedInterview = interviewService.updateInterview(id, interviewDTO);
+        return ResponseEntity.ok(updatedInterview);
+    }
+
+    /**
+     * Update interview status
+     * @param id - Interview ID
+     * @param status - New status
+     * @return Updated interview
+     */
+    @PutMapping("/{id}/status/{status}")
+    @PreAuthorize("hasRole('HRMANAGER')")
+    public ResponseEntity<InterviewDTO> updateInterviewStatus(
+            @PathVariable Long id,
+            @PathVariable InterviewStatus status) {
+        InterviewDTO dto = new InterviewDTO();
+        dto.setStatus(status);
+        InterviewDTO updatedInterview = interviewService.updateInterview(id, dto);
         return ResponseEntity.ok(updatedInterview);
     }
 

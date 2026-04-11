@@ -23,6 +23,7 @@ const navigation = [
   { name: 'Applicants', path: 'applicants', icon: Users },
   { name: 'Interviews', path: 'interviews', icon: Calendar },
   { name: 'Hiring', path: 'hiring', icon: UserCheck },
+  { name: 'Reports', path: 'reports', icon: BarChart3 },
   { name: 'Settings', path: 'settings', icon: Settings },
 ];
 
@@ -50,20 +51,20 @@ const Layout = ({ children }) => {
     <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
       {/* Static Navbar */}
       <nav className="fixed w-full bg-white border-b border-gray-200 shadow-sm z-50">
-        <div className="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center h-16 px-2 sm:px-4 lg:px-8 w-full">
           {/* Logo and Brand */}
-          <div className="flex items-center">
-            <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+          <div className="flex items-center flex-shrink-0">
+            <div className="h-10 w-10 flex-shrink-0 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
               <Briefcase className="h-6 w-6 text-white" />
             </div>
-            <div className="ml-3 flex flex-col">
-              <h1 className="text-xl font-bold text-gray-900">HireHub</h1>
-              <p className="text-xs text-gray-500">Recruitment System</p>
+            <div className="ml-2 flex flex-col">
+              <h1 className="text-lg lg:text-xl font-bold text-gray-900 leading-tight">HireHub</h1>
+              <p className="text-[10px] lg:text-xs text-gray-500 hidden sm:block">Recruitment System</p>
             </div>
           </div>
 
           {/* Desktop Navigation Links + Compact Right Section (Logout + User) */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden min-[900px]:flex items-center space-x-1 lg:space-x-2 border-r pr-4 mr-2">
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname.endsWith(item.path);
@@ -75,31 +76,35 @@ const Layout = ({ children }) => {
                     isActive
                       ? 'text-blue-600 border-b-2 border-blue-600'
                       : 'text-gray-600 hover:text-gray-900'
-                  } flex items-center px-3 py-2 text-sm font-medium`}
+                  } flex items-center px-2 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-colors`}
                 >
                   <Icon className={`${
                     isActive ? 'text-blue-500' : 'text-gray-400'
-                  } mr-2 h-5 w-5`} />
+                  } mr-1 lg:mr-2 h-4 w-4 lg:h-5 lg:w-5`} />
                   {item.name}
                 </button>
               );
             })}
+          </div>
+
+          {/* User Profile & Logout */}
+          <div className="hidden min-[900px]:flex items-center gap-3">
             <button
               onClick={() => { setUser(null); navigate('/'); }}
-              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs font-semibold"
+              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-md hover:bg-red-100 text-xs font-semibold transition-colors"
             >
               Logout
             </button>
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">
+              <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
                 {initials}
               </div>
-              <span className="font-medium text-gray-700 truncate max-w-[140px]">{displayName}</span>
+              <span className="font-medium text-gray-700 text-sm truncate max-w-[120px] hidden xl:block">{displayName}</span>
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="min-[900px]:hidden flex items-center ml-auto">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -113,7 +118,7 @@ const Layout = ({ children }) => {
         </div>
         {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200 shadow-sm">
+          <div className="min-[900px]:hidden bg-white border-t border-gray-200 shadow-sm">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => {
                 const Icon = item.icon;

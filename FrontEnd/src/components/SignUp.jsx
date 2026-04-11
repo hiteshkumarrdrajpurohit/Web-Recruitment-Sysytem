@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiUser } from 'react-icons/fi';
 import { handleSignUp as authSignUp } from '../services/auth';
+import { toast } from 'react-toastify';
 
 const BG_IMG = "../assets/bg.jpg";
 function SignUp({ onSwitchToSignIn, onSignUp }) {
@@ -47,7 +48,7 @@ function SignUp({ onSwitchToSignIn, onSignUp }) {
             
             if (result.success) {
                 // Show success message and switch to sign in
-                alert('Account created successfully! Please sign in.');
+                toast.success('Account created successfully! Please sign in.');
                 if (onSwitchToSignIn) onSwitchToSignIn();
             } else {
                 setError(result.error || 'Registration failed');

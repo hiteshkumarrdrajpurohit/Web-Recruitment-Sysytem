@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllJobs, applyForJob, getMyApplications, hasAppliedForVacancy } from '../../services/applicant';
 import { AuthContext } from '../../App';
+import { toast } from 'react-toastify';
 
 export default function JobListings() {
   const { user } = useContext(AuthContext);
@@ -98,13 +99,13 @@ export default function JobListings() {
   const handleApply = async (jobId) => {
     // Check if user is logged in and has a token
     if (!user || !user.token) {
-      alert('Please sign in to apply for jobs');
+      toast.warning('Please sign in to apply for jobs');
       return;
     }
 
     // Check if user has already applied and show alert
     if (appliedJobs.includes(jobId)) {
-      alert('You have already applied for this position');
+      toast.info('You have already applied for this position');
       return;
     }
 
@@ -118,7 +119,7 @@ export default function JobListings() {
       }
       if (precheck.data === true) {
         setAppliedJobs(prev => (prev.includes(jobId) ? prev : [...prev, jobId]));
-        alert('You have already applied for this position');
+        toast.info('You have already applied for this position');
         return;
       }
 
@@ -132,10 +133,10 @@ export default function JobListings() {
         // Show error alert for actual failures and duplicate applications
         const errText = typeof result.error === 'string' ? result.error : '';
         if (errText.toLowerCase().includes('already applied')) {
-          alert('You have already applied for this position');
+          toast.info('You have already applied for this position');
           await loadMyApplications();
         } else {
-          alert('Failed to apply for job. Please try again.');
+          toast.error('Failed to apply for job. Please try again.');
         }
       }
     } catch (err) {
@@ -144,10 +145,10 @@ export default function JobListings() {
       const respData = err?.response?.data;
       const serverMsg = typeof respData === 'string' ? respData : (respData?.message || '');
       if (serverMsg.toLowerCase().includes('already applied')) {
-        alert('You have already applied for this position');
+        toast.info('You have already applied for this position');
         await loadMyApplications();
       } else {
-        alert('Failed to apply for job. Please try again.');
+        toast.error('Failed to apply for job. Please try again.');
       }
     } finally {
       setApplying(null);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./ApplicantNavbar";
 import { getProfile, updateProfile } from '../../services/applicant';
+import { toast } from 'react-toastify';
 
 export default function ApplicantProfile() {
   const [profile, setProfile] = useState(null);
@@ -70,7 +71,7 @@ export default function ApplicantProfile() {
         // Reload profile to get updated data
         await loadProfile();
         setEditing(false);
-        alert('Profile updated successfully!');
+        toast.success('Profile updated successfully!');
       } else {
         setError(result.error || 'Failed to update profile');
       }

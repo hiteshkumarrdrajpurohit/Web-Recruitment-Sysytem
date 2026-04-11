@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { Plus, Search } from "lucide-react";
 import { getAllVacancies, createVacancy, updateVacancy, deleteVacancy } from "../../services/hr";
 import VacancyCard from "./VacancyCard";
@@ -47,7 +47,7 @@ function Vacancies() {
       if (result.success) {
         await loadVacancies(); // Reload to get updated list
         setShowCreateModal(false);
-        alert('Vacancy created successfully!');
+        toast.success('Vacancy created successfully!');
       } else {
         setError(result.error || 'Failed to create vacancy');
       }
@@ -65,7 +65,7 @@ function Vacancies() {
       if (result.success) {
         await loadVacancies(); // Reload to get updated list
         setSelectedVacancy(null);
-        alert('Vacancy updated successfully!');
+        toast.success('Vacancy updated successfully!');
       } else {
         setError(result.error || 'Failed to update vacancy');
       }
@@ -86,7 +86,7 @@ function Vacancies() {
       
       if (result.success) {
         await loadVacancies(); // Reload to get updated list
-        alert('Vacancy deleted successfully!');
+        toast.success('Vacancy deleted successfully!');
       } else {
         setError(result.error || 'Failed to delete vacancy');
       }

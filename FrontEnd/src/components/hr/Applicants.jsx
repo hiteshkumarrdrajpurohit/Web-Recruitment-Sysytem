@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Download, Eye, UserCheck, UserX } from 'lucide-react';
 import { getAllApplications, updateApplicationStatus, getAllVacancies, getAllCandidates, createHiringDecision } from '../../services/hr';
+import { toast } from 'react-toastify';
 
 function HRApplicants() {
   const [candidates, setCandidates] = useState([]);
@@ -105,7 +106,7 @@ function HRApplicants() {
       if (result.success) {
         // Reload data to get updated information
         await loadData();
-        alert(`Application status updated to ${newStatus} successfully!`);
+        toast.success(`Application status updated to ${newStatus} successfully!`);
       } else {
         setError(result.error || 'Failed to update application status');
       }
@@ -143,7 +144,7 @@ function HRApplicants() {
         }
         
         await loadData();
-        alert(`Hiring decision "${decision}" created successfully!`);
+        toast.success(`Hiring decision "${decision}" created successfully!`);
       } else {
         setError(result.error || 'Failed to create hiring decision');
       }

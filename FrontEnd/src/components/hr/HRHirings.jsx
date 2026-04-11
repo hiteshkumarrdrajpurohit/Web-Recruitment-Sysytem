@@ -15,6 +15,7 @@ import {
   
 } from 'lucide-react';
 import { getAllHirings, getAllApplications, getAllVacancies, getAllInterviews, createHiringDecision } from '../../services/hr';
+import { toast } from 'react-toastify';
 
  function HRHirings() {
   const [selectedApplication, setSelectedApplication] = useState(null);
@@ -111,7 +112,7 @@ import { getAllHirings, getAllApplications, getAllVacancies, getAllInterviews, c
         await loadData(); // Reload to get updated data
     setShowDecisionModal(false);
         setSelectedApplication(null);
-        alert('Hiring decision submitted successfully!');
+        toast.success('Hiring decision submitted successfully!');
       } else {
         setError(result.error || 'Failed to submit hiring decision');
       }

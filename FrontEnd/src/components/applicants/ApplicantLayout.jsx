@@ -10,14 +10,14 @@ const ApplicantLayout = ({ children }) => {
     const location = useLocation();
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
             {/* Static Navbar */}
             <ApplicantNavbar />
             {/* Main Content */}
-            <div className="flex flex-col flex-1 pt-0">
+            <div className="flex-1 flex flex-col pt-[72px] pb-6">
                 {/* Page content */}
                 <main className="flex-1 relative overflow-y-auto focus:outline-none">
-                    <div className="py-0 px-4 sm:px-6 lg:px-8">
+                    <div className="py-2 px-4 sm:px-6 lg:px-8">
                         <Outlet />
                     </div>
                 </main>

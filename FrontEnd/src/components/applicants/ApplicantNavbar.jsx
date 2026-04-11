@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../../App';
+import { Briefcase } from 'lucide-react';
 
 export default function Navbar() {
   const { user, setUser } = useAuth();
@@ -24,61 +25,71 @@ export default function Navbar() {
         : (emailPrefix.slice(0, 2).toUpperCase() || 'U'));
 
   return (
-    <nav className="bg-white border-b px-6 py-3 flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <div className="h-8 w-8 rounded bg-blue-600 flex items-center justify-center text-white font-bold text-lg">
-          R
+    <nav className="fixed top-0 w-full z-50 shadow-sm bg-white border-b px-4 lg:px-8 py-3 flex items-center justify-between">
+      {/* 1. Logo Section */}
+      <div className="flex items-center flex-shrink-0">
+        <div className="h-10 w-10 flex-shrink-0 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+          <Briefcase className="h-6 w-6 text-white" />
         </div>
-        <span className="font-bold text-lg">HireHub</span>
+        <div className="ml-2 flex flex-col">
+          <h1 className="text-lg lg:text-xl font-bold text-gray-900 leading-tight">HireHub</h1>
+          <p className="text-[10px] lg:text-xs text-gray-500 hidden sm:block">Recruitment System</p>
+        </div>
       </div>
-      <div className="flex gap-6 items-center">
+
+      {/* 2. Navigation Links (Center) */}
+      <div className="hidden md:flex gap-4 lg:gap-6 items-center">
         <Link
           to="/applicantlayout/user/dashboard"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           Dashboard
         </Link>
         <Link
           to="/applicantlayout/user/jobs"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           Browse Jobs
         </Link>
         <Link
           to="/applicantlayout/user/applications"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           My Applications
         </Link>
         <Link
           to="/applicantlayout/user/interviews"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           My Interviews
         </Link>
         <Link
           to="/applicantlayout/user/profile"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           Profile
         </Link>
         <Link
           to="/applicantlayout/user/settings"
-          className="font-medium text-gray-700 hover:text-blue-600"
+          className="font-medium text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-colors"
         >
           Settings
         </Link>
+      </div>
+
+      {/* 3. User Profile & Logout (Right) */}
+      <div className="flex items-center gap-4">
         <button
           onClick={handleLogout}
-          className="font-medium text-red-600 hover:text-red-800 ml-2"
+          className="px-4 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 text-xs lg:text-sm font-semibold transition-colors"
         >
           Logout
         </button>
-        <div className="ml-4 flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">
+        <div className="flex items-center gap-2 border-l pl-4">
+          <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 border border-blue-200">
             {initials}
           </div>
-          <span className="font-medium text-gray-700">
+          <span className="font-medium text-sm lg:text-base text-gray-700 hidden sm:block">
             {displayName}
           </span>
         </div>

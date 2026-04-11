@@ -72,12 +72,12 @@ public class SecurityConfig {
 						"/applications/apply", "/applications/user/**", "/applications/my", 
 						"/applications/check-applied/**").hasRole("USER")
 					
+					// Shared access between USER and HRMANAGER
+					.requestMatchers("/users/candidates", "/interviews/application/**", "/interviews/*").hasAnyRole("HRMANAGER", "USER")
+					
 					// HRMANAGER role access - HR and recruitment staff
 					.requestMatchers("/vacancies/all", "/applications", "/applications/**", 
 						"/interviews/**", "/hirings/**", "/dashboard/hr/**").hasRole("HRMANAGER")
-					
-					// Shared access between USER and HRMANAGER
-					.requestMatchers("/users/candidates", "/interviews/application/**", "/interviews/*").hasAnyRole("HRMANAGER", "USER")
 					
 					.anyRequest().authenticated()
 				)
