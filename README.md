@@ -430,9 +430,11 @@ Navigate to [http://localhost:5173](http://localhost:5173) in your browser. You'
 <img width="1370" height="938" alt="localhost_5173_" src="https://github.com/user-attachments/assets/79ee59f7-1e23-4ec8-87ef-f63cd0c2250c" />
 <img width="1521" height="858" alt="localhost_5173_signin" src="https://github.com/user-attachments/assets/0f60fdc5-94f0-4303-98fc-a247964553b2" />
 <img width="1521" height="1212" alt="localhost_5173_signin (1)" src="https://github.com/user-attachments/assets/028e0946-31df-4757-a3d5-75ed447d7aed" />
+## Applicant
+<img width="1521" height="1212" alt="localhost_5173_signin (1)" src="https://github.com/user-attachments/assets/0c3e8be2-8af8-43f9-8529-e35295d0040e" />
 
-
-
+## HR Manager
+<img width="1521" height="1127" alt="localhost_5173_signin (3)" src="https://github.com/user-attachments/assets/3ad2e08d-7db7-47b2-a654-ef59f44b9070" />
 ---
 
 ## 🤝 Contributing
