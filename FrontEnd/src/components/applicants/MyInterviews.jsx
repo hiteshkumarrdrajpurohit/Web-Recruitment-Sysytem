@@ -55,7 +55,7 @@ export default function MyInterviews() {
   const statusPill = (status) => {
     const s = (status || '').toUpperCase();
     const cls = s === 'SCHEDULED' ? 'bg-blue-100 text-blue-800' : s === 'COMPLETED' ? 'bg-green-100 text-green-800' : s === 'CANCELLED' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-700';
-    return <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${cls}`}>{s || 'UNKNOWN'}</span>;
+    return <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${cls}`}>{s || 'UNKNOWN'}</span>;
   };
 
   if (loading) {
@@ -66,23 +66,23 @@ export default function MyInterviews() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white max-w-6xl mx-auto mt-8 mb-6">
+      <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white max-w-6xl mx-auto mt-8 mb-6 shadow-lg">
         <h2 className="text-2xl font-bold mb-1">My Interviews</h2>
-        <p className="mb-2">View interviews scheduled by HR for your applications</p>
+        <p className="text-blue-100">View interviews scheduled by HR for your applications</p>
       </div>
 
       {error && (
         <div className="max-w-6xl mx-auto px-2 mb-4">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">{error}</div>
+          <div className="bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">{error}</div>
         </div>
       )}
 
       <div className="max-w-6xl mx-auto px-2 mb-8">
         {interviews.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
             <div className="text-gray-400 text-lg mb-2">No Interviews Yet</div>
-            <p className="text-gray-600 mb-4">You have no interviews scheduled.</p>
-            <Link to="/applicantlayout/user/jobs" className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">Browse Jobs</Link>
+            <p className="text-gray-500 mb-4">You have no interviews scheduled.</p>
+            <Link to="/applicantlayout/user/jobs" className="inline-block px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md transition-all">Browse Jobs</Link>
           </div>
         ) : (
           <div className="space-y-4">
@@ -91,7 +91,7 @@ export default function MyInterviews() {
               const user = application.user || {};
               const vacancy = application.vacancy || {};
               return (
-                <div key={interview.id} className="bg-white rounded-lg shadow p-6">
+                <div key={interview.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-all">
                   <div className="flex items-center justify-between mb-2">
                     <div className="text-lg font-semibold">{vacancy.title || 'Position not specified'}</div>
                     {statusPill(interview.status)}

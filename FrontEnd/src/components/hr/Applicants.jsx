@@ -186,7 +186,7 @@ function HRApplicants() {
 
       {/* Error Message */}
       {error && (
-        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mt-4 bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
           {error}
           <button 
             onClick={() => setError('')}
@@ -197,23 +197,23 @@ function HRApplicants() {
         </div>
       )}
 
-      <div className="mt-6 bg-white shadow rounded-lg p-6">
+      <div className="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <input
               type="text"
               placeholder="Search applicants..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full"
+              className="pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl w-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           <div>
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 w-full sm:w-auto"
+              className="border border-gray-200 rounded-xl px-4 py-2.5 w-full sm:w-auto text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="All">All Status</option>
               <option value="Multiple Applications">Multiple Applications</option>

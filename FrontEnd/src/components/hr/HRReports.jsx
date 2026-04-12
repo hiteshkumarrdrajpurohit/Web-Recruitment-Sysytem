@@ -117,7 +117,7 @@ function HRReports() {
     return (
       <div className="px-4 sm:px-6 lg:px-8 text-center text-red-600 mt-8">
         <p>{error}</p>
-        <button onClick={loadData} className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Retry</button>
+        <button onClick={loadData} className="mt-4 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md transition-all">Retry</button>
       </div>
     );
   }
@@ -128,7 +128,7 @@ function HRReports() {
       <div className="sm:flex sm:items-center sm:justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
-          <p className="mt-2 text-sm text-gray-700">Track recruitment performance and candidate pipelines.</p>
+          <p className="mt-1 text-sm text-gray-500">Track recruitment performance and candidate pipelines.</p>
         </div>
       </div>
 
@@ -287,7 +287,7 @@ function HRReports() {
 
 function MetricCard({ title, value, subtitle, icon: Icon, color }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transform transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transform transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <div className="p-5">
         <div className="flex items-center">
           <div className="flex-shrink-0">

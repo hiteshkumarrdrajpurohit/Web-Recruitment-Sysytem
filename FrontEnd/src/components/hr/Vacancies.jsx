@@ -129,17 +129,17 @@ function Vacancies() {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="sm:flex sm:items-center sm:justify-between">
+      <div className="sm:flex sm:items-center sm:justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Vacancies</h1>
-          <p className="mt-2 text-sm text-gray-700">
+          <p className="mt-1 text-sm text-gray-500">
             Manage job openings and track application progress. ({vacancies.length} total)
           </p>
         </div>
-        <div className="mt-4 sm:mt-0 flex space-x-3">
+        <div className="mt-4 sm:mt-0">
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-600/20 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Vacancy
@@ -149,7 +149,7 @@ function Vacancies() {
 
       {/* Error Message */}
       {error && (
-        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mt-4 bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
           {error}
           <button 
             onClick={() => setError('')}
@@ -160,23 +160,22 @@ function Vacancies() {
         </div>
       )}
 
-      {/* Filters */}
-      <div className="mt-6 bg-white shadow rounded-lg p-6">
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <input
               type="text"
               placeholder="Search vacancies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+              className="pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full text-sm"
             />
           </div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           >
             <option value="All">All Status</option>
             <option value="Open">Open</option>
@@ -187,7 +186,7 @@ function Vacancies() {
       </div>
 
       {/* Vacancies Grid */}
-      <div className="mt-6">
+      <div>
         {filteredVacancies.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-400 text-lg mb-4">
@@ -209,7 +208,7 @@ function Vacancies() {
             ) : (
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+                className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md transition-all"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Create Your First Vacancy

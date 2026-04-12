@@ -46,18 +46,18 @@ export default function ApplicantDashboard() {
       
       {/* Welcome Card */}
       <div className="max-w-6xl mx-auto mt-2">
-        <div className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white flex flex-col md:flex-row md:items-center md:justify-between mb-8 shadow-lg">
           <div>
             <h2 className="text-2xl font-bold mb-2">
               Welcome back, {displayUser.firstName} {displayUser.lastName}!
             </h2>
-            <p className="mb-4">
+            <p className="mb-5 text-blue-100">
               Ready to find your next opportunity? Let's explore the latest job
               openings.
             </p>
             <Link
               to="/applicantlayout/user/jobs"
-              className="inline-block px-5 py-2 bg-white text-blue-600 font-semibold rounded shadow hover:bg-blue-50"
+              className="inline-block px-6 py-2.5 bg-white text-blue-700 font-semibold rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
             >
               Browse Jobs
             </Link>
@@ -69,7 +69,7 @@ export default function ApplicantDashboard() {
         {/* Applications & Featured Jobs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Recent Applications */}
-          <div className="bg-white rounded-lg p-6 shadow flex-1">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex-1">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold text-lg">Recent Applications</h3>
               <Link
@@ -83,12 +83,12 @@ export default function ApplicantDashboard() {
               {applications.map((app, idx) => (
                 <div
                   key={idx}
-                  className="border rounded p-4 flex flex-col gap-1 mb-2 bg-gray-50"
+                  className="border border-gray-100 rounded-xl p-4 flex flex-col gap-1 mb-2 bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
                   <div className="font-medium">{app.vacancy?.title || 'Unknown Job'}</div>
                   <div className="text-sm text-gray-500">{app.vacancy?.department || ''}</div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
+                    <span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-semibold">
                       {app.status || 'SUBMITTED'}
                     </span>
                     <span className="text-xs text-gray-400">
@@ -101,7 +101,7 @@ export default function ApplicantDashboard() {
           </div>
 
           {/* Featured Jobs */}
-          <div className="bg-white rounded-lg p-6 shadow flex-1">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex-1">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold text-lg">Featured Jobs</h3>
               <Link
@@ -115,14 +115,14 @@ export default function ApplicantDashboard() {
               {featuredJobs.map((job, idx) => (
                 <div
                   key={idx}
-                  className="border rounded p-4 flex flex-col gap-1 mb-2 bg-gray-50"
+                  className="border border-gray-100 rounded-xl p-4 flex flex-col gap-1 mb-2 bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
                   <div className="font-medium">{job.title}</div>
                   <div className="text-sm text-gray-500">
                     {job.department} {job.location ? "| " + job.location : ""}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">
+                    <span className="text-xs bg-green-50 text-green-700 px-2.5 py-1 rounded-full font-semibold">
                       {job.type || "full-time"}
                     </span>
                     <span className="text-xs text-gray-400">
@@ -147,21 +147,21 @@ export default function ApplicantDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Link
              to="/applicantlayout/user/jobs"
-            className="flex items-center gap-3 bg-white rounded-lg p-4 shadow hover:bg-blue-50"
+            className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-blue-200 transition-all"
           >
             <span className="bg-blue-100 p-2 rounded">🔍</span>
             <span className="font-medium">Browse Jobs</span>
           </Link>
           <Link
            to="/applicantlayout/user/profile"
-            className="flex items-center gap-3 bg-white rounded-lg p-4 shadow hover:bg-green-50"
+            className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-green-200 transition-all"
           >
             <span className="bg-green-100 p-2 rounded">👤</span>
             <span className="font-medium">Update Profile</span>
           </Link>
           <Link
            to="/applicantlayout/user/applications"
-            className="flex items-center gap-3 bg-white rounded-lg p-4 shadow hover:bg-purple-50"
+            className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-purple-200 transition-all"
           >
             <span className="bg-purple-100 p-2 rounded">📄</span>
             <span className="font-medium">Track Applications</span>

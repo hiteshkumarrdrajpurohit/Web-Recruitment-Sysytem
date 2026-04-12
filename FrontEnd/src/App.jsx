@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -27,6 +28,7 @@ import ApplicantDashboard from "./components/applicants/ApplicantDashboard";
 import ApplicantSettings from "./components/applicants/ApplicantSettings";
 import ApplicantLayout from "./components/applicants/ApplicantLayout";
 import MyInterviews from "./components/applicants/MyInterviews";
+import LandingPage from "./components/LandingPage";
 
 
 // Placeholder components for missing pages
@@ -83,6 +85,17 @@ function AuthWrapper() {
   return <SignIn onSwitchToSignUp={switchToSignUp} />;
 }
 
+// Wrapper components for routed sign in / sign up pages
+function SignInPage() {
+  const navigate = useNavigate();
+  return <SignIn onSwitchToSignUp={() => navigate('/signup')} />;
+}
+
+function SignUpPage() {
+  const navigate = useNavigate();
+  return <SignUp onSwitchToSignIn={() => navigate('/signin')} />;
+}
+
 function App() {
   const [user, setUserState] = useState(() => {
     // Initialize user state from localStorage
@@ -115,9 +128,9 @@ function App() {
     <Router>
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<AuthWrapper />} />
-        <Route path="/signin" element={<AuthWrapper />} />
-        <Route path="/signup" element={<AuthWrapper />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protected HR routes */}

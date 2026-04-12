@@ -138,7 +138,7 @@ import { toast } from 'react-toastify';
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Hiring Management</h1>
-          <p className="mt-2 text-sm text-gray-700">
+          <p className="mt-1 text-sm text-gray-500">
             Make hiring decisions and manage the final stages of recruitment.
           </p>
         </div>
@@ -147,7 +147,7 @@ import { toast } from 'react-toastify';
 
       {/* Error Message */}
       {error && (
-        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mt-4 bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
           {error}
           <button 
             onClick={() => setError('')}
@@ -160,8 +160,8 @@ import { toast } from 'react-toastify';
 
       <div className="mt-8">
         {/* Recent Hiring Decisions */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-          <div className="px-6 py-4 border-b border-gray-200">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
+          <div className="px-6 py-4 border-b border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900">Recent Decisions</h3>
             <p className="text-sm text-gray-600">Latest hiring outcomes</p>
           </div>
@@ -201,7 +201,7 @@ import { toast } from 'react-toastify';
 
 function SummaryCard({ title, value, icon: Icon, color, description }) {
   return (
-    <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200">
+    <div className="bg-white overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
       <div className="p-5">
         <div className="flex items-center">
           <div className="flex-shrink-0">
@@ -262,7 +262,7 @@ function DecisionCard({ decision }) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4">
+    <div className="border border-gray-100 rounded-2xl p-4 hover:shadow-sm transition-all">
       <div className="flex items-center justify-between mb-3">
         <div>
           <h4 className="font-semibold text-gray-900">
@@ -270,7 +270,7 @@ function DecisionCard({ decision }) {
           </h4>
           <p className="text-sm text-gray-600">{vacancy.title || 'Position not specified'}</p>
         </div>
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getDecisionColor(decision.decision)}`}>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${getDecisionColor(decision.decision)}`}>
           {getDecisionIcon(decision.decision)}
           <span className="ml-1">{getDecisionDisplay(decision.decision)}</span>
         </span>
@@ -305,7 +305,7 @@ function HireCard({ application, decision }) {
   const vacancy = application.vacancy || {};
   
   return (
-    <div className="border border-green-200 rounded-lg p-4 bg-green-50">
+    <div className="border border-green-100 rounded-2xl p-4 bg-green-50">
       <div className="flex items-center space-x-3 mb-3">
         <div className="h-10 w-10 bg-green-500 rounded-full flex items-center justify-center">
           <span className="text-sm font-bold text-white">

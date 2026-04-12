@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden bg-gray-50">
       {/* Static Navbar */}
-      <nav className="fixed w-full bg-white border-b border-gray-200 shadow-sm z-50">
+      <nav className="fixed w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm z-50">
         <div className="flex justify-between items-center h-16 px-2 sm:px-4 lg:px-8 w-full">
           {/* Logo and Brand */}
           <div className="flex items-center flex-shrink-0">
@@ -91,7 +91,7 @@ const Layout = ({ children }) => {
           <div className="hidden min-[900px]:flex items-center gap-3">
             <button
               onClick={() => { setUser(null); navigate('/'); }}
-              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-md hover:bg-red-100 text-xs font-semibold transition-colors"
+              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 text-xs font-semibold transition-colors"
             >
               Logout
             </button>

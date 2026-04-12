@@ -69,7 +69,7 @@ export default function ApplicantSettings() {
      
 
       {/* Settings Content */}
-      <div className="max-w-2xl mx-auto mt-2 bg-white rounded-xl shadow p-8">
+      <div className="max-w-2xl mx-auto mt-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
         <h2 className="text-2xl font-bold mb-6">Account Settings</h2>
 
         {/* Change Password */}
@@ -80,7 +80,7 @@ export default function ApplicantSettings() {
               <label className="block mb-1 font-medium">Current Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
@@ -90,7 +90,7 @@ export default function ApplicantSettings() {
               <label className="block mb-1 font-medium">New Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
@@ -102,7 +102,7 @@ export default function ApplicantSettings() {
               </label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -113,7 +113,7 @@ export default function ApplicantSettings() {
             )}
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700"
+              className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md transition-all"
             >
               Change Password
             </button>
@@ -132,7 +132,7 @@ export default function ApplicantSettings() {
           )}
           <button
             onClick={handleDeleteAccount}
-            className="px-6 py-2 bg-red-600 text-white rounded font-semibold hover:bg-red-700"
+            className="px-6 py-2.5 text-sm font-semibold text-white bg-red-600 rounded-xl hover:bg-red-700 shadow-md transition-all"
           >
             Delete Account
           </button>

@@ -216,15 +216,15 @@ export default function JobListings() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Gradient Header */}
-      <div className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white max-w-6xl mx-auto mt-8 mb-6">
+      <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white max-w-6xl mx-auto mt-8 mb-6 shadow-lg">
         <h2 className="text-2xl font-bold mb-1">Find Your Dream Job</h2>
-        <p className="mb-2">Discover {filteredJobs.length} opportunities from top companies</p>
+        <p className="text-blue-100">Discover {filteredJobs.length} opportunities from top companies</p>
       </div>
 
       {/* Error Message */}
       {error && (
         <div className="max-w-6xl mx-auto px-2 mb-4">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
             {error}
           </div>
       </div>
@@ -234,7 +234,7 @@ export default function JobListings() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center gap-4 mb-6 px-2">
         <input
           type="text"
-          className="flex-1 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           placeholder="Search jobs, companies, departments, or keywords..."
           value={search}
           onChange={e => setSearch(e.target.value)}
@@ -268,17 +268,17 @@ export default function JobListings() {
             {filteredJobs.map((job, idx) => {
               const hasApplied = appliedJobs.includes(job.id);
               return (
-            <div key={job.id || idx} className={`bg-white rounded-lg shadow p-6 flex flex-col md:flex-row md:items-start md:justify-between border transition-all duration-300 ${
+            <div key={job.id || idx} className={`bg-white rounded-2xl border shadow-sm p-6 flex flex-col md:flex-row md:items-start md:justify-between transition-all duration-300 ${
               hasApplied 
-                ? 'opacity-75 bg-gray-50 border-gray-300' 
-                : 'hover:shadow-lg hover:border-blue-200'
+                ? 'opacity-75 bg-gray-50 border-gray-200' 
+                : 'border-gray-100 hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5'
             }`}>
               <div className="flex-1">
                 {/* Job Title and Company */}
                 <div className={`font-bold text-lg mb-1 flex items-center gap-2 ${hasApplied ? 'text-gray-600' : 'text-gray-900'}`}>
                   {job.title || 'Untitled Position'}
                   {hasApplied && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
                       ✓ Applied
                     </span>
                   )}
@@ -301,7 +301,7 @@ export default function JobListings() {
                 )}
                 <div className="text-gray-600 text-sm mb-2 flex items-center gap-2">
                   {job.department && (
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">
+                    <span className="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full text-xs font-semibold">
                       {job.department}
                     </span>
                   )}
@@ -321,7 +321,7 @@ export default function JobListings() {
                 {job.requirements && (
                   <div className="mb-3">
                     <div className="text-sm font-medium text-gray-600 mb-2">Requirements:</div>
-                    <div className="text-sm text-gray-700 bg-gray-50 p-2 rounded">
+                    <div className="text-sm text-gray-700 bg-gray-50 p-3 rounded-xl">
                       {job.requirements}
                 </div>
                 </div>
@@ -366,7 +366,7 @@ export default function JobListings() {
                 {/* Apply Button */}
                 {hasApplied ? (
                     <button
-                    className="mt-2 px-4 py-2 rounded font-semibold bg-gray-400 text-white cursor-not-allowed flex items-center gap-2"
+                    className="mt-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gray-200 text-gray-500 cursor-not-allowed flex items-center gap-2"
                       disabled
                       title="You have already applied for this position"
                       onClick={(e) => e.preventDefault()}
@@ -375,10 +375,10 @@ export default function JobListings() {
                     </button>
                 ) : (
                   <button
-                    className={`mt-2 px-4 py-2 rounded font-semibold transition-colors flex items-center gap-2 ${
+                    className={`mt-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center gap-2 ${
                       applying === job.id 
-                        ? 'bg-gray-400 text-white cursor-not-allowed' 
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                        : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-600/20'
                     }`}
                     onClick={() => !hasApplied && handleApply(job.id)}
                     disabled={applying === job.id || hasApplied}

@@ -112,7 +112,7 @@ export default function MyApplications() {
       {/* Error Message */}
       {error && (
         <div className="max-w-6xl mx-auto px-2 pt-8">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
             {error}
             <button 
               onClick={loadData}
@@ -125,28 +125,28 @@ export default function MyApplications() {
       )}
 
       {/* Gradient Header */}
-      <div className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white max-w-6xl mx-auto mt-8 mb-6">
+      <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white max-w-6xl mx-auto mt-8 mb-6 shadow-lg">
         <h2 className="text-2xl font-bold mb-1">My Applications</h2>
-        <p className="mb-2">Track the progress of your {stats.total} job application{stats.total !== 1 ? 's' : ''}</p>
+        <p className="text-blue-100">Track the progress of your {stats.total} job application{stats.total !== 1 ? 's' : ''}</p>
       </div>
 
       
 
       {/* Filter Bar */}
       <div className="max-w-6xl mx-auto flex items-center gap-4 mb-4 px-2">
-        <button className="px-4 py-2 border rounded bg-white">All Applications</button>
+        <button className="px-4 py-2 border border-gray-200 rounded-xl bg-white text-sm font-medium">All Applications</button>
         <span className="text-gray-500 text-sm">Showing {applications.length} of {applications.length} applications</span>
       </div>
 
       {/* Applications List */}
       <div className="max-w-6xl mx-auto mb-8 px-2">
         {applications.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
             <div className="text-gray-400 text-lg mb-2">No Applications Yet</div>
-            <p className="text-gray-600 mb-4">You haven't applied for any jobs yet.</p>
+            <p className="text-gray-500 mb-4">You haven't applied for any jobs yet.</p>
             <Link 
               to="/applicantlayout/user/jobs" 
-              className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              className="inline-block px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md transition-all"
             >
               Browse Jobs
             </Link>
@@ -154,7 +154,7 @@ export default function MyApplications() {
         ) : (
           <div className="space-y-4">
             {applications.map((application) => (
-              <div key={application.id} className="bg-white rounded-lg shadow p-6">
+              <div key={application.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-all">
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <div className="font-bold text-lg">
@@ -172,7 +172,7 @@ export default function MyApplications() {
                   </span>
                 </div>
                 
-                <div className="bg-gray-50 rounded p-3 mb-4 text-gray-700 text-sm">
+                <div className="bg-gray-50 rounded-xl p-3 mb-4 text-gray-700 text-sm">
                   Application status: {application.status || 'Submitted'}
                   {application.vacancy?.location && (
                     <span className="ml-2 text-gray-500">• Location: {application.vacancy.location}</span>
@@ -197,7 +197,7 @@ export default function MyApplications() {
                     {application.coverLetter && (
                       <div className="text-sm">
                         <span className="font-medium">Cover Letter:</span>
-                        <div className="text-gray-700 mt-1 p-2 bg-gray-100 rounded text-xs">
+                        <div className="text-gray-700 mt-1 p-2 bg-gray-50 rounded-xl text-xs">
                           {application.coverLetter}
                         </div>
                       </div>
@@ -239,7 +239,7 @@ export default function MyApplications() {
                               <span className="font-medium">Skills:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {applicant.skills.split(',').map((skill, i) => (
-                                  <span key={i} className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
+                                  <span key={i} className="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold">
                                     {skill.trim()}
                                   </span>
                                 ))}

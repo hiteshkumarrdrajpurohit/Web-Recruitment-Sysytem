@@ -348,14 +348,14 @@ export function Interviews() {
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Interviews</h1>
-          <p className="mt-2 text-sm text-gray-700">
+          <p className="mt-1 text-sm text-gray-500">
             Schedule and manage interviews with candidates ({filteredInterviews.length} interviews)
           </p>
         </div>
         <div className="mt-4 sm:mt-0 flex space-x-3">
           <button
             onClick={() => setViewMode(viewMode === 'list' ? 'calendar' : 'list')}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="inline-flex items-center px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 bg-white hover:border-gray-300 transition-all"
           >
             {viewMode === 'list' ? <Calendar className="h-4 w-4 mr-2" /> : <User className="h-4 w-4 mr-2" />}
             {viewMode === 'list' ? 'Calendar' : 'List'} View
@@ -363,7 +363,7 @@ export function Interviews() {
           
           <button
             onClick={() => setShowScheduleModal(true)}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-600/20 transition-all"
           >
             <Calendar className="h-4 w-4 mr-2" />
             Schedule Interview
@@ -373,7 +373,7 @@ export function Interviews() {
 
       {/* Error Message */}
       {error && (
-        <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mt-4 bg-red-50 border border-red-100 text-red-700 px-4 py-3 rounded-xl">
           {error}
           <button 
             onClick={() => setError('')}
@@ -385,7 +385,7 @@ export function Interviews() {
       )}
 
       {/* Enhanced Filters */}
-      <div className="mt-6 bg-white shadow rounded-lg p-6">
+      <div className="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-medium text-gray-900">Filters & Controls</h3>
           <div className="flex space-x-2">
@@ -393,14 +393,14 @@ export function Interviews() {
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleBulkAction('cancel')}
-                  className="inline-flex items-center px-3 py-2 border border-orange-300 rounded-md text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100"
+                  className="inline-flex items-center px-3 py-2 border border-orange-200 rounded-xl text-sm font-medium text-orange-700 bg-orange-50 hover:bg-orange-100 transition-all"
                 >
                   <XCircle className="h-4 w-4 mr-2" />
                   Cancel Selected ({selectedInterviews.length})
                 </button>
                 <button
                   onClick={() => handleBulkAction('delete')}
-                  className="inline-flex items-center px-3 py-2 border border-red-300 rounded-md text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100"
+                  className="inline-flex items-center px-3 py-2 border border-red-200 rounded-xl text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100 transition-all"
                 >
                   <Trash2 className="h-4 w-4 mr-2" />
                   Delete Selected

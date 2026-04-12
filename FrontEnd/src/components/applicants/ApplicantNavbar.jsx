@@ -25,7 +25,7 @@ export default function Navbar() {
         : (emailPrefix.slice(0, 2).toUpperCase() || 'U'));
 
   return (
-    <nav className="fixed top-0 w-full z-50 shadow-sm bg-white border-b px-4 lg:px-8 py-3 flex items-center justify-between">
+    <nav className="fixed top-0 w-full z-50 shadow-sm bg-white/95 backdrop-blur-sm border-b border-gray-100 px-4 lg:px-8 py-3 flex items-center justify-between">
       {/* 1. Logo Section */}
       <div className="flex items-center flex-shrink-0">
         <div className="h-10 w-10 flex-shrink-0 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">

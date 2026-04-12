@@ -39,7 +39,7 @@ function StatusBadge({ status }) {
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${colorClass}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${colorClass}`}
     >
       {displayStatus}
     </span>
@@ -113,9 +113,11 @@ function HRDashboard() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-gray-500">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <div className="text-xl font-medium">Loading dashboard data...</div>
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-500 font-medium">Loading dashboard data...</p>
+        </div>
       </div>
     );
   }
@@ -147,14 +149,12 @@ function HRDashboard() {
 
   return (
     <div>
-      <div className="sm:flex sm:items-center sm:justify-between">
+      <div className="sm:flex sm:items-center sm:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-2 text-sm text-gray-700">
+          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p className="mt-1 text-sm text-gray-500">
             Welcome back! Here's what's happening with your recruitment process.
           </p>
-        </div>
-        <div className="mt-4 sm:mt-0 flex items-center space-x-4">
         </div>
       </div>
 
@@ -171,34 +171,30 @@ function HRDashboard() {
         </div>
       )}
 
-      <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 w-full">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 w-full mb-8">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <div
               key={stat.name}
-              className="bg-white border border-gray-200 overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
             >
               <div className="p-5 flex items-center">
                 <div
-                  className={`p-3 rounded-lg shadow-sm flex-shrink-0 ${stat.color}`}
+                  className={`p-3 rounded-xl flex-shrink-0 ${stat.color} bg-opacity-10`}
                 >
-                  <Icon className="h-6 w-6 text-white" />
+                  <Icon className={`h-6 w-6 ${stat.color.replace('bg-', 'text-')}`} />
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
-                      {stat.name}
-                    </dt>
-                    <dd className="flex items-baseline">
-                      <div className="text-2xl font-bold text-gray-900">
-                        {stat.value}
-                      </div>             
-                    </dd>
-                    <dd className="text-xs text-gray-500 mt-1">
-                      {stat.description}
-                    </dd>
-                  </dl>
+                <div className="ml-4 w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-500 truncate">
+                    {stat.name}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 mt-0.5">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {stat.description}
+                  </p>
                 </div>
               </div>
             </div>
@@ -206,10 +202,10 @@ function HRDashboard() {
         })}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div>
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">
                 Recent Applicants
               </h3>
@@ -229,7 +225,7 @@ function HRDashboard() {
                 recentApplications.map((application) => (
                   <div
                     key={application.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200"
                   >
                     <div className="flex items-center space-x-4">
                       <div className="h-12 w-12 flex items-center justify-center rounded-full shadow-sm bg-gradient-to-br from-blue-500 to-blue-600">
@@ -265,8 +261,8 @@ function HRDashboard() {
           </div>
         </div>
         <div>
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">
                 Upcoming Interviews
               </h3>
@@ -286,7 +282,7 @@ function HRDashboard() {
                 upcomingInterviews.map((interview) => (
                   <div
                     key={interview.id}
-                    className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200"
                   >
                     <div className="flex items-center justify-between">
                       <div>

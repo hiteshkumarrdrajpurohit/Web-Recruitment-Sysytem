@@ -28,11 +28,11 @@ function VacancyCard({ vacancy, onEdit, onDelete }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${getStatusColor(
               vacancy.status
             )}`}
           >
@@ -78,7 +78,7 @@ function VacancyCard({ vacancy, onEdit, onDelete }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div className="flex items-center text-sm text-gray-500">
             <Users className="h-4 w-4 mr-1" />
             {vacancy.numberOfVacancies || 1} position{(vacancy.numberOfVacancies || 1) > 1 ? 's' : ''}

@@ -173,7 +173,7 @@ export default function ApplicantProfile() {
 
       {/* Profile Card */}
       <div className="max-w-4xl mx-auto mt-2">
-        <div className="bg-white rounded-xl shadow p-8 flex flex-col items-center">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex flex-col items-center">
           <div className="relative mb-4 group cursor-pointer">
             <label className="cursor-pointer block relative">
               <input type="file" className="hidden" accept="image/*" onChange={handlePhotoUpload} />
@@ -408,13 +408,13 @@ export default function ApplicantProfile() {
               <div className="flex gap-4 justify-center mt-4">
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700"
+                  className="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md transition-all"
                 >
                   Save
                 </button>
                 <button
                   type="button"
-                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded font-semibold hover:bg-gray-300"
+                  className="px-6 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-all"
                   onClick={() => setEditing(false)}
                 >
                   Cancel
@@ -452,7 +452,7 @@ export default function ApplicantProfile() {
                         profile.skills.split(',').map((skill, i) => (
                           <span
                             key={i}
-                            className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded"
+                            className="bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-semibold"
                           >
                             {skill.trim()}
                           </span>
@@ -514,7 +514,7 @@ export default function ApplicantProfile() {
               </div>
 
               <button
-                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700"
+                className="mt-4 px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 shadow-md transition-all"
                 onClick={() => setEditing(true)}
               >
                 Update Profile
