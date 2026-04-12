@@ -426,7 +426,12 @@ Navigate to [http://localhost:5173](http://localhost:5173) in your browser. You'
 
 ## 🖼 Screenshots
 
-> _Add screenshots of the Landing Page, HR Dashboard, Applicant Portal, etc. here._
+> 
+<img width="1370" height="938" alt="localhost_5173_" src="https://github.com/user-attachments/assets/79ee59f7-1e23-4ec8-87ef-f63cd0c2250c" />
+<img width="1521" height="858" alt="localhost_5173_signin" src="https://github.com/user-attachments/assets/0f60fdc5-94f0-4303-98fc-a247964553b2" />
+<img width="1521" height="1212" alt="localhost_5173_signin (1)" src="https://github.com/user-attachments/assets/028e0946-31df-4757-a3d5-75ed447d7aed" />
+
+
 
 ---
 
